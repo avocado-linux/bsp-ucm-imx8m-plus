@@ -1,0 +1,81 @@
+default_target: ucm-imx8m-plus
+supported_targets:
+  - ucm-imx8m-plus
+
+extensions:
+  avocado-bsp-ucm-imx8m-plus:
+    version: 0.1.0
+    release: r0
+    summary: Board support for the CompuLab UCM-iMX8M-Plus SOM
+    description: >-
+      Platform board support for the CompuLab UCM-iMX8M-Plus i.MX8M Plus SOM:
+      the kernel modules its hardware loads (NXP CAAM crypto, SAI/ASRC + HDMI
+      audio, HDMI CEC, the HiFi4 DSP remoteproc, on-module EEPROM, zram, device
+      mapper, NFS). Carrier-specific bits (e.g. CAN, cellular modem on the
+      IOT-GATE) live in the carrier extension layered on top.
+    license: Apache-2.0
+    url: https://github.com/avocadolinux/avocado-os
+    vendor: Avocado Linux <info@avocadolinux.org>
+
+    types:
+      - sysext
+      - confext
+
+    on_merge:
+      - udevadm control --reload
+      - udevadm trigger --type=subsystems --action=add --settle
+      - udevadm trigger --type=devices --action=add --settle
+
+    # Explicit module set observed in `lsmod` on the booted SOM (trimmed from
+    # the kernel-modules catch-all). Add WiFi/BT (iwlwifi / Marvell) modules
+    # here once a card is exercised -- none were loaded in the captured lsmod.
+    packages:
+      # --- Crypto / Security (NXP CAAM) ---
+      kernel-module-caam: '*'
+      kernel-module-caam-jr: '*'
+      kernel-module-caamalg-desc: '*'
+      kernel-module-caamhash-desc: '*'
+      kernel-module-caamkeyblob-desc: '*'
+      kernel-module-authenc: '*'
+      kernel-module-crypto-engine: '*'
+      kernel-module-error: '*'
+      kernel-module-libdes: '*'
+      kernel-module-secvio: '*'
+      kernel-module-fsl-jr-uio: '*'
+      kernel-module-crct10dif-ce: '*'
+      kernel-module-polyval-ce: '*'
+      kernel-module-polyval-generic: '*'
+      # --- Audio (SAI / ASRC / HDMI) ---
+      kernel-module-snd-soc-hdmi-codec: '*'
+      kernel-module-snd-soc-imx-hdmi: '*'
+      kernel-module-snd-soc-fsl-easrc: '*'
+      kernel-module-snd-soc-fsl-asrc: '*'
+      kernel-module-snd-soc-fsl-aud2htx: '*'
+      # --- Display / HDMI ---
+      kernel-module-dw-hdmi-cec: '*'
+      # --- DSP (HiFi4 remoteproc) ---
+      kernel-module-imx-dsp-rproc: '*'
+      # --- Input (SOM EVK touch panel) ---
+      kernel-module-evdev: '*'
+      kernel-module-evbug: '*'
+      kernel-module-goodix-ts: '*'
+      # --- On-module EEPROM ---
+      kernel-module-at24: '*'
+      # --- Filesystems / block / NFS ---
+      kernel-module-fuse: '*'
+      kernel-module-dm-mod: '*'
+      kernel-module-nfsd: '*'
+      kernel-module-auth-rpcgss: '*'
+      # --- Compression / zram ---
+      kernel-module-zram: '*'
+      kernel-module-zsmalloc: '*'
+      kernel-module-lz4: '*'
+      kernel-module-lz4-compress: '*'
+      # --- Network qdisc ---
+      kernel-module-sch-fq-codel: '*'
+      # --- Firmware ---
+      firmware-imx-sdma-imx7d: '*'
+      wireless-regdb-static: '*'
+
+sdk:
+  image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}
