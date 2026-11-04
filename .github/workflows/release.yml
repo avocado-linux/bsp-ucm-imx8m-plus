@@ -18,6 +18,8 @@ jobs:
         include:
           # edge is what the references consume (distro.channel: edge); next mirrors
           # the other BSP repos so this extension rides the same promote path.
+          - { target: ucm-imx8m-plus, distro-release: "2026", distro-channel: edge }
+          - { target: ucm-imx8m-plus, distro-release: "2026", distro-channel: next }
           - { target: ucm-imx8m-plus, distro-release: "2024", distro-channel: edge }
           - { target: ucm-imx8m-plus, distro-release: "2024", distro-channel: next }
     uses: avocado-linux/actions/.github/workflows/extension-release.yml@v1
