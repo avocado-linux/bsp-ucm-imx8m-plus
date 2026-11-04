@@ -4,7 +4,7 @@ supported_targets:
 
 extensions:
   avocado-bsp-ucm-imx8m-plus:
-    version: 0.1.0
+    version: 0.1.1
     release: r0
     summary: Board support for the CompuLab UCM-iMX8M-Plus SOM
     description: >-
@@ -42,7 +42,6 @@ extensions:
       kernel-module-libdes: '*'
       kernel-module-secvio: '*'
       kernel-module-fsl-jr-uio: '*'
-      kernel-module-crct10dif-ce: '*'
       kernel-module-polyval-ce: '*'
       kernel-module-polyval-generic: '*'
       # --- Audio (SAI / ASRC / HDMI) ---
@@ -57,7 +56,6 @@ extensions:
       kernel-module-imx-dsp-rproc: '*'
       # --- Input (SOM EVK touch panel) ---
       kernel-module-evdev: '*'
-      kernel-module-evbug: '*'
       kernel-module-goodix-ts: '*'
       # --- On-module EEPROM ---
       kernel-module-at24: '*'

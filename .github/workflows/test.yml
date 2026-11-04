@@ -12,6 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - { target: ucm-imx8m-plus, distro-release: "2026", distro-channel: edge }
           - { target: ucm-imx8m-plus, distro-release: "2024", distro-channel: edge }
     uses: avocado-linux/actions/.github/workflows/extension-test.yml@v1
     with:
